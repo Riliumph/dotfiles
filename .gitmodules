@@ -1,3 +1,6 @@
 [submodule "bash"]
 	path = bash
 	url = https://github.com/Riliumph/bash.git
+[submodule "git-config"]
+	path = git-config
+	url = https://github.com/Riliumph/git-config.git
