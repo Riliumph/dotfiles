@@ -4,8 +4,7 @@
 # Convert to absolute path
 # @param $1 path
 # @return absolute path
-abs_dirname()
-{
+abs_dirname() {
   local path="$1"
 
   # Check path existence one by one
@@ -20,11 +19,9 @@ abs_dirname()
   pwd -P # return string
 }
 
-inited_submodule()
-{
-  local target_path=$1
-  files=("${target_path}/*")
-  if (("${#files}" != 0)); then
+inited_submodule() {
+  local target_path="$1"
+  if [ -z "$(\ls -lA "${target_path}")" ]; then
     # echo "${target_path} is inited"
     return 0
   fi
@@ -32,13 +29,11 @@ inited_submodule()
   return 1
 }
 
-all()
-{
+all() {
   local func="$1"
   shift # 引数を一つズラす
   local data=("$@")
   for d in "${data[@]}"; do
-    echo "checking ${d} ..."
     if ! "$func" "$d"; then
       return 1
     fi
