@@ -45,7 +45,7 @@ root=$(abs_dirname "$0")
 # echo "root is ${root}"
 
 echo "check submodules ..."
-mapfile -t dirs < <(find "${root}" -maxdepth 1 -mindepth 1 -type d \( ! -name .git -a ! -name .vscode \))
+mapfile -t dirs < <(find "${root}" -maxdepth 1 -mindepth 1 -type d \( ! -name .git -a ! -name .vscode -a ! -name wiki \))
 # echo "submodules: ${dirs[*]}"
 
 if ! (all "inited_submodule" "${dirs[@]}"); then
