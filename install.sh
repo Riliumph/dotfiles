@@ -4,7 +4,8 @@
 # Convert to absolute path
 # @param $1 path
 # @return absolute path
-abs_dirname() {
+abs_dirname()
+{
   local path="$1"
 
   # Check path existence one by one
@@ -19,49 +20,17 @@ abs_dirname() {
   pwd -P # return string
 }
 
-inited_submodule() {
-  local target_path="$1"
-  if [ -z "$(\ls -lA "${target_path}")" ]; then
-    # echo "${target_path} is inited"
-    return 0
-  fi
-  # echo "${target_path} is not inited"
-  return 1
-}
-
-all() {
-  local func="$1"
-  shift # 引数を一つズラす
-  local data=("$@")
-  for d in "${data[@]}"; do
-    if ! "$func" "$d"; then
-      return 1
-    fi
-  done
-  return 0
-}
-
 root=$(abs_dirname "$0")
 # echo "root is ${root}"
 
-echo "check submodules ..."
-mapfile -t dirs < <(find "${root}" -maxdepth 1 -mindepth 1 -type d \( ! -name .git -a ! -name .vscode -a ! -name wiki \))
-# echo "submodules: ${dirs[*]}"
-
-if ! (all "inited_submodule" "${dirs[@]}"); then
-  echo "detected noninited submodule"
-  echo "init submodule ..."
-  git submodule init
-  git submodule update
-fi
-
 echo "install submodules"
+git submodule init
+git submodule update --remote --recursive
 
 # install bash config
 cd "${root}/bash" || exit
 ./INSTALL.bash
 
 # install git config
-
 cd "${root}/git-config" || exit
 ./INSTALL.bash

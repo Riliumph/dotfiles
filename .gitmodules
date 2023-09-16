@@ -2,11 +2,14 @@
 	path = wiki
 	url = https://github.com/Riliumph/dotfiles.wiki.git
 	branch = master
+	ignore = all
 [submodule "bash"]
 	path = bash
 	url = https://github.com/Riliumph/bash.git
 	branch = master
+	ignore = all
 [submodule "git-config"]
 	path = git-config
 	url = https://github.com/Riliumph/git-config.git
 	branch = master
+	ignore = all
